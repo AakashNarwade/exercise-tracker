@@ -2,22 +2,26 @@
 require("dotenv").config();
 const express = require("express");
 
+const workoutRoutes = require("./routes/workoutRoutes");
 
 //express app
 const app = express();
-// dotenv.config();
-
 
 // middleware
-app.use((req,res,next)=>{
-console.log(req.path, req.method);
-next();
-})
+app.use(express.json());
+app.use((req, res, next) => {
+  next();
+});
 
 // routes
-app.get('/', (req,res)=>{
-    res.json({message:"Hello there wassup fam "})
-})
+//get all workouts
+app.use("/api/workout", workoutRoutes);
+
+//get a single workout
+app.use("/api/workout", workoutRoutes);
+
+//post a workout
+app.use("/api/workout", workoutRoutes);
 
 //listen for requests
 app.listen(process.env.PORT, ()=>{
