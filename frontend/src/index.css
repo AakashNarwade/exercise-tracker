@@ -75,6 +75,7 @@ color: #555;
    padding: 10px;
    border-radius: 50%;
    color: #333;
+   cursor: pointer;
   }
 
   /* new workout form */

@@ -3,7 +3,6 @@ import { WorkoutsContext } from "../context/WorkoutContext";
 
 export const useWorkoutsContext = () => {
   const context = useContext(WorkoutsContext);
-  console.log("context=> ", context);
 
   if (!context) {
     throw Error(

@@ -9,7 +9,6 @@ const WorkoutForm = () => {
   const { dispatch } = useWorkoutsContext();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("clicked");
     const workout = { title, load, reps };
 
     const response = await fetch("/api/workout", {
@@ -28,7 +27,6 @@ const WorkoutForm = () => {
       setReps("");
       setTitle("");
       setError(null);
-      console.log("new workout added");
       dispatch({ type: "CREATE_WORKOUT", payload: result });
     }
   };
