@@ -6,6 +6,7 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState();
+  const [emptyFields, setEmptyFields] = useState([]);
   const { dispatch } = useWorkoutsContext();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,12 +22,14 @@ const WorkoutForm = () => {
     const result = await response.json();
     if (!response.ok) {
       setError(result.error);
+      setEmptyFields(result.emptyFields);
     }
     if (response.ok) {
       setLoad("");
       setReps("");
       setTitle("");
       setError(null);
+      setEmptyFields([]);
       dispatch({ type: "CREATE_WORKOUT", payload: result });
     }
   };
@@ -42,6 +45,7 @@ const WorkoutForm = () => {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          className={emptyFields.includes("title") ? "error" : ""}
         />
         <label>Load:</label>
         <input
@@ -50,6 +54,7 @@ const WorkoutForm = () => {
           onChange={(e) => {
             setLoad(e.target.value);
           }}
+          className={emptyFields.includes("load") ? "error" : ""}
         />
         <label>Reps</label>
         <input
@@ -58,6 +63,7 @@ const WorkoutForm = () => {
           onChange={(e) => {
             setReps(e.target.value);
           }}
+          className={emptyFields.includes("reps") ? "error" : ""}
         />
         <button>Submit</button>
         {error && <div className="error">{error}</div>}

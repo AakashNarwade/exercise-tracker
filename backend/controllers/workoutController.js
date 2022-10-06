@@ -4,6 +4,19 @@ const mongoose = require("mongoose");
 //post a new workout
 const createWorkout = async (req, res) => {
   const { reps, load, title } = req.body;
+  const emptyFields = [];
+  if (!reps) {
+    emptyFields.push("reps");
+  }
+  if (!load) {
+    emptyFields.push("load");
+  }
+  if (!title) {
+    emptyFields.push("title");
+  }
+  if (emptyFields.length > 0) {
+    res.status(400).json({ error: "Please complete all fields", emptyFields });
+  }
   try {
     const workout = await Workout.create({ reps, load, title });
     res.status(200).json(workout);
